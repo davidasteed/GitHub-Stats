@@ -1,0 +1,23 @@
+{
+  "name": "tiy-week-4-day-1",
+  "dependencies": {
+    "node-fetch": "^1.6.3"
+  },
+  "description": "GitHub Users Iron Yard Front End Immersive Week 3, Day 1 6 march 2017 Developer:  David Steed",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidasteed/GitHub-Stats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidasteed/GitHub-Stats/issues"
+  },
+  "homepage": "https://github.com/davidasteed/GitHub-Stats#readme"
+}
