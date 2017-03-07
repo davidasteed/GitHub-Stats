@@ -82,7 +82,6 @@ let promiseRepo = fetch (
 promiseRepo.then(
   function handleRepo(repoObj) {
     if (repoObj.status > 199 && repoObj.status < 300) {
-      // do work
       // start new promise to attempt to convert the response Object into JSON format
       // and only process the then() if the promise is kept
       repoObj.json().then(
@@ -119,13 +118,13 @@ promiseRepo.then(
             }
           );
 
-          // Question 3:  "For the repo they own with the most stars, print out EACH CONTRIBUTOR'S login ."
-          // This question relies upon the previous promise/then object still being accessible
-          // NOTE:  we need to loop over all matchingRepos, not just the first
+            // Question 3:  "For the repo they own with the most stars, print out EACH CONTRIBUTOR'S login ."
+            // This question relies upon the previous promise/then object still being accessible
+            // NOTE:  we need to loop over all matchingRepos, not just the first
 
-          let basicPrefix = "https://api.github.com";
-          let contribPrefix = "/repos/";
-          let contribSuffix = "/contributors";
+            let basicPrefix = "https://api.github.com";
+            let contribPrefix = "/repos/";
+            let contribSuffix = "/contributors";
 
             console.log("\nDebug: The URL to fetch is: ", basicPrefix + contribPrefix + argument1 + "/" + matchingRepos[0] + contribSuffix);
             let promiseContributor = fetch(
@@ -138,28 +137,31 @@ promiseRepo.then(
               }
             );
 
+            for (let i = matchingRepos.length - 1; i >= 0; i--) {
             promiseContributor.then(
               function handleResponse(contribObj) {
                 if (contribObj.status > 199 && contribObj.status < 300) {
-
                   // start new promise to convert to JSON format
                   contribObj.json().then(
                     function contribPeek(currentObj){
                       console.log("Debug: the object contains: ", currentObj);
 
                       // print each each contributor's logion
-                      console.log("Debug:  the login is: ", currentObj[0].login);
-                      for (let i = currentObj.length - 1; i >= 0; i--) {
-                          console.log("The login name for each contributor is: ", currentObj[i].login);
+                      console.log("Debug:  the login is: ", currentObj[i].login);
+                      console.log("\nFor the", matchingRepos[i], "repository,");
+                      for (let j = currentObj.length - 1; j >= 0; j--) {
+                          console.log("the login name for each contributor is: ", currentObj[j].login);
                       }
                     }
                   );
                 } else {
-                  console.log("\nFailed to determine the contributor with the second-most contributors");
-                  console.log("HTTP response code", contribObj.status, " was received from the server");
-                }
+                console.log("\nFailed to determine the contributor with the second-most contributors");
+                console.log("HTTP response code", contribObj.status, " was received from the server");
               }
-            );
+          } // end of promise contributor internal function
+        );
+        } // end loop here
+
       }
       );
 
